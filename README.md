@@ -90,6 +90,25 @@ return Woocommerce::put('products/1', $data);
 So you don't have to mess around with the request and response header and the calculations this wrapper will do all the heavy lifting for you.
 (WC 2.6.x or later, WP 4.4 or later) 
 
+## Laravel LengthAwarePaginator
+```php
+use Woocommerce;
+
+$params = [
+    'per_page' => 25, 
+    'page' => 5
+];
+
+// or
+
+$params = [];
+
+$products = Woocommerce::get('products', $params, true);
+$products->setPath(url('products'));
+return $products;
+```
+
+## raw pagination data
 ```php
 use Woocommerce;
 
