@@ -1,6 +1,8 @@
 <?php namespace Hexboy\Woocommerce;
 
 use Automattic\WooCommerce\Client;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Input;
 
 /**
  * @property mixed config
@@ -53,9 +55,23 @@ class WoocommerceClient
      *
      * @return array
      */
-    public function get($endpoint, $parameters = [])
+    public function get($endpoint, $parameters = [], $paginate = false)
     {
-        return $this->client->get($endpoint, $parameters);
+        if (!isset($parameters['page'])) {
+            $parameters['page'] = Input::get('page', 1);
+        }
+
+        if (!isset($parameters['per_page'])) {
+            $parameters['per_page'] = 10;
+        }
+
+        $result = $this->client->get($endpoint, $parameters);
+
+        if ($paginate == false) {
+            return $result;
+        }
+
+        return new LengthAwarePaginator($result, $this->totalResults(), $parameters['per_page']);
     }
 
     /**
