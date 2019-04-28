@@ -8,7 +8,7 @@ A simple Laravel 5 wrapper for the [official WooCommerce REST API PHP Library](h
 
 For API Version v3, WooCommerce 3.0+, Wordpress 4.4+, php 7.0+, Laravel 5.5+ use the v3.x branch
 ``` bash
-composer require hexboy/laravel-woocommerce-api-client ^1.0
+composer require hexboy/laravel-woocommerce-api-client ^2.0
 ```
 
 ### Step 2: Publish configuration
@@ -20,12 +20,10 @@ php artisan vendor:publish --provider="Hexboy\Woocommerce\WoocommerceServiceProv
 You can directly edit the configuration in `config/woocommerce.php` or copy these values to your `.env` file.
 ```php
 WOOCOMMERCE_STORE_URL=http://example.org
-WOOCOMMERCE_CONSUMER_KEY=ck_XXXXXXXXXXXXXXXXXX
-WOOCOMMERCE_CONSUMER_SECRET=cs_XXXXXXXXXXXXXXXXXX
 WOOCOMMERCE_VERIFY_SSL=false
 WOOCOMMERCE_VERSION=v3
 WOOCOMMERCE_WP_API=true
-WOOCOMMERCE_WP_QUERY_STRING_AUTH=false
+WOOCOMMERCE_AUTH_TYPE=JWT
 WOOCOMMERCE_WP_TIMEOUT=15
 ```
 
@@ -120,18 +118,6 @@ $params = [
 ];
 
 Woocommerce::get('orders', $params);
-
-Woocommerce::totalResults(); // 474
-Woocommerce::firstPage(); // 1
-Woocommerce::lastPage(); // 19
-Woocommerce::currentPage(); // 5 
-Woocommerce::totalPages(); // 19
-Woocommerce::previousPage(); // 4
-Woocommerce::nextPage(); // 6
-Woocommerce::hasPreviousPage(); // true 
-Woocommerce::hasNextPage(); // true
-Woocommerce::hasNotPreviousPage(); // false 
-Woocommerce::hasNotNextPage(); // false
 ```
 
 ### HTTP Request & Response (Headers)
@@ -155,12 +141,6 @@ Woocommerce::getResponse()->getHeaders()['X-WP-Total']
 
 ### More Examples
 Refer to [WooCommerce REST API Documentation](https://woocommerce.github.io/woocommerce-rest-api-docs) for more examples and documention.
-
-## Testing
-Run the tests with:
-```bash
-vendor/bin/phpunit
-```
 
 ## License
 

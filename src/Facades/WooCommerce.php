@@ -1,8 +1,8 @@
-<?php namespace Hexboy\Woocommerce\Facades;
+<?php namespace Hexboy\WooCommerce\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class Woocommerce extends Facade
+class WooCommerce extends Facade
 {
     /**
      * Get the registered name of the component.

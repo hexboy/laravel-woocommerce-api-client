@@ -6,21 +6,7 @@ return [
     | Home URL to the store you want to connect to here
     |--------------------------------------------------------------------------
     */
-    'store_url' => env('WOOCOMMERCE_STORE_URL', 'http://example.org/'),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Consumer Key
-    |--------------------------------------------------------------------------
-    */
-    'consumer_key' => env('WOOCOMMERCE_CONSUMER_KEY', 'YOUR_CONSUMER_KEY'),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Consumer Secret
-    |--------------------------------------------------------------------------
-    */
-    'consumer_secret' => env('WOOCOMMERCE_CONSUMER_SECRET', 'YOUR_CONSUMER_SECRET'),
+    'store_url' => env('WOOCOMMERCE_STORE_URL', 'http://example.org'),
 
     /*
     |--------------------------------------------------------------------------
@@ -45,10 +31,10 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Force Basic Authentication as query string
+    | Authentication type JWT/BASIC
     |--------------------------------------------------------------------------
     */
-    'query_string_auth' => env('WOOCOMMERCE_WP_QUERY_STRING_AUTH', false),
+    'query_auth_type' => env('WOOCOMMERCE_AUTH_TYPE', 'JWT'),
 
     /*
     |--------------------------------------------------------------------------
