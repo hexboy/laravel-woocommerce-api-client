@@ -1,9 +1,9 @@
-<?php namespace Hexboy\Woocommerce;
+<?php namespace Hexboy\WooCommerce;
 
-use Automattic\WooCommerce\Client;
+use Hexboy\WooCommerce\WooCommerceClient;
 use Illuminate\Support\ServiceProvider;
 
-class WoocommerceServiceProvider extends ServiceProvider
+class WooCommerceServiceProvider extends ServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
@@ -34,31 +34,22 @@ class WoocommerceServiceProvider extends ServiceProvider
         $app = $this->app;
 
         // merge default config
-        $this->mergeConfigFrom(
-            __DIR__ . '/../config/woocommerce.php',
-            'woocommerce'
-        );
+        $this->mergeConfigFrom(__DIR__ . '/../config/woocommerce.php','woocommerce');
 
         $config = $app['config']->get('woocommerce');
 
-        $app->singleton('woocommerce.client', function() use ($config) {
-            return new Client(
+        $app->singleton('Hexboy\WooCommerce\WooCommerceClient', function() use ($config) {
+            return new WooCommerceClient(
                 $config['store_url'],
-                $config['consumer_key'],
-                $config['consumer_secret'],
                 [
-                    'version' => 'wc/'.$config['api_version'],
+                    'version' => 'woocommerce/'.$config['api_version'],
                     'verify_ssl' => $config['verify_ssl'],
                     'wp_api' => $config['wp_api'],
-                    'query_string_auth' => $config['query_string_auth'],
+                    'query_auth_type' => $config['query_auth_type'],
                     'timeout' => $config['timeout'],
                 ]);
         });
 
-        $app->singleton('Hexboy\Woocommerce\WoocommerceClient', function($app) {
-            return new WoocommerceClient($app['woocommerce.client']);
-        });
-
-        $app->alias('Hexboy\Woocommerce\WoocommerceClient', 'woocommerce');
+        $app->alias('Hexboy\WooCommerce\WooCommerceClient', 'woocommerce');
     }
 }
